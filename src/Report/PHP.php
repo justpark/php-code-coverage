@@ -21,14 +21,8 @@ final class PHP
 {
     public function process(CodeCoverage $coverage, ?string $target = null): string
     {
-        $buffer = sprintf(
-            "<?php
-return \unserialize(<<<'END_OF_COVERAGE_SERIALIZATION'%s%s%sEND_OF_COVERAGE_SERIALIZATION%s);",
-            PHP_EOL,
-            serialize($coverage),
-            PHP_EOL,
-            PHP_EOL
-        );
+        $buffer = "<?php
+return \unserialize(<<<'END_OF_COVERAGE_SERIALIZATION'" . PHP_EOL . serialize($coverage) . PHP_EOL. 'END_OF_COVERAGE_SERIALIZATION' . PHP_EOL . ");";
 
         if ($target !== null) {
             Filesystem::createDirectory(dirname($target));
